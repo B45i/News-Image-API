@@ -11,7 +11,7 @@ app.get(`/`, async function (req, res) {
         '16-06-2021',
         'Amal Shajan'
     );
-    res.writeHead(200, { 'Content-Type': 'image/png' });
+    res.writeHead(200, { 'Content-Type': 'image/jpeg' });
     res.end(image, 'binary');
 });
 

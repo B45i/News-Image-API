@@ -2,6 +2,9 @@ const nodeHtmlToImage = require('node-html-to-image');
 
 async function generateImage(title, imgURL, date, author) {
     return await nodeHtmlToImage({
+        quality: 100,
+        type: 'jpeg',
+        puppeteerArgs: { args: ['--no-sandbox'] },
         html: `
     <!DOCTYPE html>
     <html>
@@ -99,7 +102,6 @@ async function generateImage(title, imgURL, date, author) {
             </div>
         </body>
         </html>`,
-        puppeteerArgs: { args: ['--no-sandbox'] },
     });
 }
 
