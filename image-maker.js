@@ -62,10 +62,11 @@ async function generateImage(title, imgURL, date, author) {
                 .date {
                     z-index: 999;
                     position: absolute;
-                    padding: 5px;
+                    padding: 5px 8px;
                     font-size: 0.7rem;
                     background-color: #ffdd40;
                     color: black;
+                    border-radius: 20px;
                 }
     
                 .author {
