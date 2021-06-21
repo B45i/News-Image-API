@@ -35,15 +35,20 @@ app.get(`/`, async (req, res) => {
 });
 
 app.get(`/generate`, async (req, res) => {
-    const url =
-        'https://newsapi.org/v2/top-headlines?country=in&apiKey=1fe4c0ba59564ef7aafa8e3831d1ad19';
+    const { endpoint } = req;
+    if (!endpoint) {
+        res.status(400);
+        res.send(`URL is missing`);
+    }
     try {
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(endpoint);
         const x = addToDB(data);
         return res.json(x);
     } catch (error) {
         res.status(400);
-        res.send(`couldn't generate news`);
+        res.send(
+            `couldn't generate news; seems like you have exhausted your quota`
+        );
     }
 });
 
