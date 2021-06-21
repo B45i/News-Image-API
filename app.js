@@ -3,11 +3,12 @@ const axios = require('axios').default;
 const generateImage = require('./image-maker');
 
 const app = express();
+app.use(express.json());
 const port = process.env.PORT || 5001;
 
 const db = {};
 
-const addToDB = data => {
+const getKeys = data => {
     const keys = [];
     (data.articles || []).forEach(
         ({ urlToImage, title, publishedAt, author }) => {
@@ -34,15 +35,15 @@ app.get(`/`, async (req, res) => {
     res.end(image, 'binary');
 });
 
-app.get(`/generate`, async (req, res) => {
-    const { endpoint } = req;
+app.post(`/generate`, async (req, res) => {
+    const { endpoint } = req.body;
     if (!endpoint) {
         res.status(400);
         res.send(`URL is missing`);
     }
     try {
         const { data } = await axios.get(endpoint);
-        const x = addToDB(data);
+        const x = getKeys(data);
         return res.json(x);
     } catch (error) {
         res.status(400);
